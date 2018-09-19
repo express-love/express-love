@@ -1,0 +1,12 @@
+{
+    "name": "@express-love/map-values-async",
+    "version": "0.0.1",
+    "description": "Replaces properties that are promises with the values they resolve",
+    "main": "index.js",
+    "author": "Ken Browning",
+    "license": "ISC",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "https://github.com/express-love/express-love/tree/master/packages/map-values-async"
+}

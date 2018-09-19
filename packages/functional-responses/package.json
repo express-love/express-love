@@ -1,0 +1,12 @@
+{
+    "name": "@express-love/functional-responses",
+    "version": "0.0.1",
+    "description": "Functions for use with functional-middleware",
+    "main": "index.js",
+    "author": "Ken Browning",
+    "license": "ISC",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "https://github.com/express-love/express-love/tree/master/packages/functional-responses"
+}
