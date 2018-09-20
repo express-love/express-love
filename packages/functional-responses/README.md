@@ -44,6 +44,17 @@ Returns a 200 response.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** A response object.
 
+## created
+
+Returns a 201 response.
+
+### Parameters
+
+-   `body` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** The body parameter can be a String, an object,
+    or an Array.
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** A response object.
+
 ## badRequest
 
 Returns a 400 response.
