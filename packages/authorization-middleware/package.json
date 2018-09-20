@@ -1,6 +1,6 @@
 {
     "name": "@express-love/authorization-middleware",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Creates middleware that enforces authorization",
     "main": "index.js",
     "author": "Ken Browning",
