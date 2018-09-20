@@ -40,6 +40,17 @@ function ok(body) {
 }
 
 /**
+ * Returns a 201 response.
+ *
+ * @param {(string|Object)} body The body parameter can be a String, an object,
+ * or an Array.
+ * @returns {Object} A response object.
+ */
+function created(body) {
+  return { status: 201, body };
+}
+
+/**
  * Returns a 400 response.
  *
  * @param {(string|Object)} body The body parameter can be a String, an object,
@@ -94,6 +105,7 @@ function setHeaders(response, headers) {
 module.exports = {
   send,
   ok,
+  created,
   badRequest,
   unauthorized,
   forbidden,
