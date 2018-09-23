@@ -1,61 +1,49 @@
-const authorizationMiddleware = require('..');
+import authorizationMiddleware from '..';
 
 describe('authorizationMiddleware', () => {
-  it('responds when authenticated == true && authorized == true', async () => {
-    const isAuthenticated = () => true;
-    const isAuthorized = () => true;
+  it('responds when authenticated == true && authorized == true', () => {
     const next = jest.fn();
 
-    authorizationMiddleware({ isAuthenticated, isAuthorized })(
-      'req',
-      'res',
-      next,
-    );
+    authorizationMiddleware({
+      isAuthenticated: () => true,
+      isAuthorized: () => true,
+    })('req' as any, 'res' as any, next);
 
     expect(next).toHaveBeenCalled();
   });
 
-  it('responds when authenticated == false && authorized == true', async () => {
-    const isAuthenticated = () => false;
-    const isAuthorized = () => true;
+  it('responds when authenticated == false && authorized == true', () => {
     const next = jest.fn();
 
-    authorizationMiddleware({ isAuthenticated, isAuthorized })(
-      'req',
-      'res',
-      next,
-    );
+    authorizationMiddleware({
+      isAuthenticated: () => false,
+      isAuthorized: () => true,
+    })('req' as any, 'res' as any, next);
 
     expect(next).toHaveBeenCalled();
   });
 
-  it('gets calls the wapped handler when authenticated == true && authorized == false', async () => {
-    const isAuthenticated = () => true;
-    const isAuthorized = () => false;
+  it('gets calls the wapped handler when authenticated == true && authorized == false', () => {
     const res = { sendStatus: jest.fn() };
     const next = jest.fn();
 
-    authorizationMiddleware({ isAuthenticated, isAuthorized })(
-      'req',
-      res,
-      next,
-    );
+    authorizationMiddleware({
+      isAuthenticated: () => true,
+      isAuthorized: () => false,
+    })('req' as any, res as any, next);
 
     expect(res.sendStatus).toHaveBeenCalledWith(403);
     expect(next).not.toHaveBeenCalled();
   });
 
-  it('gets calls the wapped handler when authenticated == false && authorized == false', async () => {
-    const isAuthenticated = () => false;
-    const isAuthorized = () => false;
+  it('gets calls the wapped handler when authenticated == false && authorized == false', () => {
     const res = { sendStatus: jest.fn() };
     const next = jest.fn();
 
-    authorizationMiddleware({ isAuthenticated, isAuthorized })(
-      'req',
-      res,
-      next,
-    );
+    authorizationMiddleware({
+      isAuthenticated: () => false,
+      isAuthorized: () => false,
+    })('req' as any, res as any, next);
 
     expect(res.sendStatus).toHaveBeenCalledWith(401);
     expect(next).not.toHaveBeenCalled();

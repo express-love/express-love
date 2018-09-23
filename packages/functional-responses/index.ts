@@ -1,10 +1,26 @@
-const { STATUS_CODES } = require('http');
+import { Response } from 'express';
+
+import { STATUS_CODES } from 'http';
+
+export interface IHash<T> {
+  [key: string]: T;
+}
+
+export type ResponseBody =
+  | string
+  | IHash<string>
+  | Array<string | IHash<string>>;
+
+export type ResponseHeaders = IHash<string>;
+
+export interface IResponse {
+  body?: ResponseBody;
+  headers?: ResponseHeaders;
+  status: number;
+}
 
 /**
  * Sends a specified response using the specified express `res` object.
- *
- * @param {Object} res An express `res` object.
- * @param {Object} response A response object created by this module.
  *
  * @example
  * const express = require('express');
@@ -21,7 +37,13 @@ const { STATUS_CODES } = require('http');
  *   return responses.ok('hello world');
  * }));
  */
-function send(res, response) {
+export function send(
+  res: Response,
+  /**
+   * A response object created by this module.
+   */
+  response: IResponse,
+) {
   const { status, headers, body } = response;
   res.status(status);
   res.set(headers);
@@ -29,61 +51,42 @@ function send(res, response) {
 }
 
 /**
- * Returns a 200 response.
- *
- * @param {(string|Object)} body The body parameter can be a String, an object,
- * or an Array.
- * @returns {Object} A response object.
+ * @returns a 200 response.
  */
-function ok(body) {
-  return { status: 200, body };
+export function ok(body?: ResponseBody) {
+  return { status: 200, body } as IResponse;
 }
 
 /**
- * Returns a 201 response.
- *
- * @param {(string|Object)} body The body parameter can be a String, an object,
- * or an Array.
- * @returns {Object} A response object.
+ * @returns a 201 response.
  */
-function created(body) {
-  return { status: 201, body };
+export function created(body?: ResponseBody) {
+  return { status: 201, body } as IResponse;
 }
 
 /**
- * Returns a 400 response.
- *
- * @param {(string|Object)} body The body parameter can be a String, an object,
- * or an Array.
- * @returns {Object} A response object.
+ * @returns a 400 response.
  */
-function badRequest(body) {
-  return { status: 400, body };
+export function badRequest(body?: ResponseBody) {
+  return { status: 400, body } as IResponse;
 }
 
 /**
- * Returns a 401 response.
- *
- * @returns {Object} A response object.
+ * @returns a 401 response.
  */
-function unauthorized() {
-  return { status: 401 };
+export function unauthorized() {
+  return { status: 401 } as IResponse;
 }
 
 /**
- * Returns a 403 response.
- *
- * @returns {Object} A response object.
+ * @returns a 403 response.
  */
-function forbidden() {
-  return { status: 403 };
+export function forbidden() {
+  return { status: 403 } as IResponse;
 }
 
 /**
  * Adds headers to a response. This function returns a new object.
- *
- * @param {Object} response The original response.
- * @param {Object.<string, string>} headers The headers to add.
  *
  * @example
  * const responses = require('@express-love/functional-responses');
@@ -94,20 +97,23 @@ function forbidden() {
  *     { 'Content-Type': 'application/json' },
  *   );
  * }
- *
- * @returns {Object} A response object.
  */
-function setHeaders(response, headers) {
-  const nextHeaders = Object.assign({}, response.headers, headers);
-  return Object.assign({}, response, { headers: nextHeaders });
+export function setHeaders(
+  /**
+   * The original response.
+   */
+  response: IResponse,
+  /**
+   * The headers to add.
+   */
+  headers: ResponseHeaders,
+) {
+  const nextHeaders = {
+    ...response.headers,
+    ...headers,
+  };
+  return {
+    ...response,
+    headers: nextHeaders,
+  } as IResponse;
 }
-
-module.exports = {
-  send,
-  ok,
-  created,
-  badRequest,
-  unauthorized,
-  forbidden,
-  setHeaders,
-};

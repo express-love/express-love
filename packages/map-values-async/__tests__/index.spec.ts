@@ -1,4 +1,4 @@
-const mapValuesAsync = require('..');
+import mapValuesAsync from '..';
 
 describe('mapValuesAsync', () => {
   it('returns the specified object after resolving any properties that are promises', async () => {
