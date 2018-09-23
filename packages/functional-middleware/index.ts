@@ -1,18 +1,31 @@
+import { Request, RequestHandler, Response } from 'express';
+
+export interface IHash<T> {
+  [key: string]: T;
+}
+
+export type ResponseBody =
+  | string
+  | IHash<string>
+  | Array<string | IHash<string>>;
+
+export type ResponseHeaders = IHash<string>;
+
+export interface IResponse {
+  body?: ResponseBody;
+  headers?: ResponseHeaders;
+  status: number;
+}
+
 /**
  * Creates an express middleware function that allows endpoints to be expressed
  * as a function returning a response value. The specified `createResponse`
  * function will be called and the response value that is returned will be sent
  * to the specified `sendResponse` function.
  *
- * @param {Object} options
- * @param {Function} options.createResponse An async function that creates a response
- * object.
- * @param {Function} options.sendResponse A function that will send the created response
- * object.
- *
  * @example
- * const express = require('express');
- * const functionalMiddleware = require('@express-love/functional-middleware');
+ * import * as express from 'express';
+ * import functionalMiddleware from '@express-love/functional-middleware';
  *
  * const sendResponse = (res, response) => res.status(response.status).send(response.body);
  * const apiHandler = (createResponse) => functionalMiddleware({ createResponse, sendResponse });
@@ -23,19 +36,23 @@
  *   await doSomething();
  *   return { status: 200, body: 'hello world' };
  * }));
- *
- * @returns {Function} An express middleware function.
  */
-
-function functionalMiddleware({ createResponse, sendResponse }) {
-  return async (req, res, next) => {
+export default function functionalMiddleware({
+  createResponse,
+  sendResponse,
+}: {
+  createResponse: (req?: Request) => Promise<IResponse>;
+  /**
+   * Sends the created response object.
+   */
+  sendResponse: (res?: Response, response?: IResponse) => void;
+}) {
+  return (async (req, res, next) => {
     try {
       const response = await createResponse(req);
       sendResponse(res, response);
     } catch (error) {
       next(error);
     }
-  };
+  }) as RequestHandler;
 }
-
-module.exports = functionalMiddleware;

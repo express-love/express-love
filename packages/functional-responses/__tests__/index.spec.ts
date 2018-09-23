@@ -1,4 +1,6 @@
-const responses = require('..');
+import { Response } from 'express';
+
+import * as responses from '..';
 
 describe('responses.ok', () => {
   it('returns status 200', () => {
@@ -25,8 +27,8 @@ describe('responses.badRequest', () => {
     const result = responses.badRequest(['ERROR_1', 'ERROR_2']);
 
     expect(result).toEqual({
-      status: 400,
       body: ['ERROR_1', 'ERROR_2'],
+      status: 400,
     });
   });
 });
@@ -65,11 +67,11 @@ describe('responses.setHeaders', () => {
 
 describe('responses.send', () => {
   function mockExpressResponse() {
-    return {
-      status: jest.fn(),
-      set: jest.fn(),
+    return ({
       send: jest.fn(),
-    };
+      set: jest.fn(),
+      status: jest.fn(),
+    } as Partial<Response>) as Response;
   }
 
   it('calls the status method of the `res` object', () => {

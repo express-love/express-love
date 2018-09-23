@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "install-git-hooks": "git config core.hooksPath .githooks",
-    "format": "prettier --write \"**/*.js\"",
-    "test": "npm run test:eslint && npm run test:prettier && npm run test:jest && npm run test:documentation-lint && npm run test:documentation-readme",
-    "test:eslint": "eslint .",
-    "test:prettier": "prettier --list-different \"**/*.js\"",
+    "format": "prettier --parser typescript --write \"**/*.ts\"",
+    "test": "npm run test:tslint && npm run test:prettier && npm run test:jest && npm run test:documentation-lint && npm run test:documentation-readme",
+    "test:tslint": "tslint -p tsconfig.json",
+    "test:prettier": "prettier --parser typescript --list-different \"packages/**/*.ts\"",
     "test:jest": "jest",
     "test:documentation-lint": "lerna exec -- documentation lint",
     "test:documentation-readme": "lerna exec -- documentation readme --markdown-toc false --section Usage --diff-only",
@@ -17,44 +17,36 @@
   },
   "author": "Ken Browning",
   "license": "ISC",
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/__tests__/*.spec.ts"
+    ]
+  },
+  "dependencies": {
+    "@types/express": "^4.16.0"
+  },
   "devDependencies": {
+    "@types/jest": "^23.3.2",
     "documentation": "^8.1.2",
-    "eslint": "^5.5.0",
-    "eslint-config-prettier": "^2.10.0",
     "jest": "^23.6.0",
     "lerna": "^3.4.0",
-    "prettier": "^1.14.2"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "prettier"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2018
-    },
-    "rules": {
-      "indent": [
-        "error",
-        2
-      ],
-      "linebreak-style": [
-        "error",
-        "unix"
-      ],
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "semi": [
-        "error",
-        "always"
-      ]
-    }
+    "prettier": "^1.14.2",
+    "ts-jest": "^23.10.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^3.0.3"
   },
   "prettier": {
     "singleQuote": true,

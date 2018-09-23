@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "curly": [true, "ignore-same-line"],
+    "indent": [true, "spaces", 2],
+    "linebreak-style": [true, "LF"],
+    "quotemark": [true, "single"],
+    "semicolon": [true, "always"]
+  },
+  "defaultSeverity": "error"
+}
