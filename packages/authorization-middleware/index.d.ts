@@ -3,6 +3,6 @@ export default function authorizationMiddleware({
   isAuthenticated,
   isAuthorized,
 }: {
-  isAuthenticated: (req?: Request) => boolean;
-  isAuthorized: (req?: Request) => boolean;
+  isAuthenticated: (req: Request) => boolean;
+  isAuthorized: (req: Request) => boolean;
 }): RequestHandler;
