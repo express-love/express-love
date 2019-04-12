@@ -31,7 +31,7 @@ describe('functionalHandler', () => {
     const createResponse = () => Promise.reject(error);
     const next = jest.fn();
 
-    await functionalHandler({ createResponse, sendResposne: jest.fn() })(
+    await functionalHandler({ createResponse, sendResponse: jest.fn() })(
       'req',
       'res',
       next,

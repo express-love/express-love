@@ -33,7 +33,7 @@ const apiHandler = createResponse =>
   functionalMiddleware({ createResponse, sendResponse: responses.send });
 
 function createExamplesRouter() {
-  const router = module.exports express.Router();
+  const router = express.Router();
 
   router.get(
     '/api/examples',
