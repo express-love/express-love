@@ -78,6 +78,12 @@ Returns a 403 response.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** A response object.
 
+## notFound
+
+Returns a 404 response.
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** A response object.
+
 ## setHeaders
 
 Adds headers to a response. This function returns a new object.

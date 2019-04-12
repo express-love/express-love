@@ -80,6 +80,15 @@ function forbidden() {
 }
 
 /**
+ * Returns a 404 response.
+ *
+ * @returns {Object} A response object.
+ */
+function notFound() {
+  return { status: 404 };
+}
+
+/**
  * Adds headers to a response. This function returns a new object.
  *
  * @param {Object} response The original response.
@@ -109,5 +118,6 @@ module.exports = {
   badRequest,
   unauthorized,
   forbidden,
+  notFound,
   setHeaders,
 };
