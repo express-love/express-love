@@ -19,7 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "documentation": "^11.0.0",
-    "eslint": "^5.5.0",
+    "eslint": "^6.0.1",
     "eslint-config-prettier": "^4.2.0",
     "jest": "^24.8.0",
     "lerna": "^3.4.0",
